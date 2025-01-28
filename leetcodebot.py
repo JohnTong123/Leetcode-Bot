@@ -20,7 +20,7 @@ CONNECTION_STRING = os.getenv("CONNECTION_STRING")
 CLIENT = MongoClient(CONNECTION_STRING)
 
 
-last_embed = None
+# last_embed = None
 SCORES = {}
 MONTHLY_SCORES = {}
 
@@ -220,13 +220,13 @@ def timestamp():
 
 @bot.command(aliases=['t', 'lb', 'leaderboard'])
 async def top(ctx, mod=None):
-    global last_embed
-    try:
-        last_embed
-    except NameError:
-        last_embed = None
-    if not last_embed is None:
-        await last_embed.edit(view=None)
+    # global last_embed
+    # try:
+        # last_embed
+    # except NameError:
+        # last_embed = None
+    # if not last_embed is None:
+        # await last_embed.edit(view=None)
     if mod is not None and mod in {"all","a"}:
         print("Updating user score from API " + timestamp())
         database = get_database()
@@ -248,7 +248,7 @@ async def top(ctx, mod=None):
         right_arrow_button = Button(label="Next", style=discord.ButtonStyle.primary, custom_id="right_arrow")
 
         # Create a view to hold the buttons
-        view = View()
+        view = View(timeout=60)
         view.add_item(left_arrow_button)
         view.add_item(right_arrow_button)
         author_rank = -1
@@ -305,8 +305,11 @@ async def top(ctx, mod=None):
         right_arrow_button.callback = on_button_click
 
         message = await ctx.send(embed=pages[0], view=view)
-        last_embed = message
-        await ctx.send("You are #" + str(author_rank) + " with " + str(author_score) + " points.")
+        # last_embed = message
+        if author_rank == -1:
+            await ctx.send("No account linked!")
+        else:
+            await ctx.send("You are #" + str(author_rank) + " with " + str(author_score) + " points.")
 
     elif mod is None:
         # print('heyyyy')
@@ -325,7 +328,7 @@ async def top(ctx, mod=None):
         right_arrow_button = Button(label="Next", style=discord.ButtonStyle.primary, custom_id="right_arrow")
 
         # Create a view to hold the buttons
-        view = View()
+        view = View(timeout=120)
         view.add_item(left_arrow_button)
         view.add_item(right_arrow_button)
         author_rank = -1
@@ -387,7 +390,7 @@ async def top(ctx, mod=None):
         right_arrow_button.callback = on_button_click
 
         message = await ctx.send(embed=pages[0], view=view)
-        last_embed = message
+        # last_embed = message
         # if leaderboard != "":
         #     await ctx.send(leaderboard)
         if author_rank == -1:
