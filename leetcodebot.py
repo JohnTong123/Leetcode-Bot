@@ -160,7 +160,7 @@ def get_all_scores_from_api():
 
     count = 1
 
-    curr_date = str(date.today())
+    curr_date = str(date.today().month)
     monthly_reset = False
     global MONTHLY_SCORES
     # try:
