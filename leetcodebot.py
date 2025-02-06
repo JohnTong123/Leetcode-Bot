@@ -203,7 +203,7 @@ async def score_background_task():
 
 @bot.command()
 async def score(ctx):
-    if not ctx.channel in {"lcdegens", "leetcode-leaderboard"}:
+    if not str(ctx.channel) in {"lcdegens", "leetcode-leaderboard"}:
         return
     database = get_database()
     if list(database["users"].find({"discord_id": ctx.author.id})) == []:
@@ -223,7 +223,7 @@ def timestamp():
 @bot.command(aliases=['t', 'lb', 'leaderboard'])
 async def top(ctx, mod=None):
     # global last_embed
-    if not ctx.channel in {"lcdegens", "leetcode-leaderboard"}:
+    if not str(ctx.channel) in {"lcdegens", "leetcode-leaderboard"}:
         return
     # try:
         # last_embed
@@ -409,7 +409,7 @@ async def top(ctx, mod=None):
 
 @bot.command()
 async def forcetop(ctx):
-    if not ctx.channel in {"lcdegens", "leetcode-leaderboard"}:
+    if not str(ctx.channel) in {"lcdegens", "leetcode-leaderboard"}:
         return
     user_roles = ctx.author.roles
     approved_roles = {"Officer","Chair"}
@@ -457,7 +457,7 @@ async def link(ctx, account_name):
 async def unlink(ctx):
     # Name of leetcode account to add to the database
     account_id = ctx.author.id
-    if not ctx.channel in {"lcdegens", "leetcode-leaderboard"}:
+    if not str(ctx.channel) in {"lcdegens", "leetcode-leaderboard"}:
         return
     database = get_database()
 
@@ -505,7 +505,7 @@ async def forceunlink(ctx, discord_id):
 
 @bot.command()
 async def help(ctx):
-    if not ctx.channel in {"lcdegens", "leetcode-leaderboard"}:
+    if not str(ctx.channel) in {"lcdegens", "leetcode-leaderboard"}:
         return
     embed = discord.Embed(title = "Help")
 
@@ -532,7 +532,7 @@ async def on_message(message):
 
 @bot.command()
 async def credit(ctx):
-    if not ctx.channel in {"lcdegens", "leetcode-leaderboard"}:
+    if not str(ctx.channel) in {"lcdegens", "leetcode-leaderboard"}:
         print(ctx.channel)
         return
     await ctx.send("Original bot comes from Georgia Tech's LC Server. Github: https://github.com/SaatvikAgrawal/GT-Leetcode-Bot.git")
