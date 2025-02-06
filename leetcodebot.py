@@ -509,7 +509,7 @@ async def help(ctx):
         return
     embed = discord.Embed(title = "Help")
 
-    embed.add_field(name = "Use", value = "To add your account, use \"!link [your Leetcode username].\" To unlunk your account use !unlink. To see your score, use !score, to see the monthly leaderboard, use !top or !t, and to see the all-time leaderboard use !top a")
+    embed.add_field(name = "Use", value = "To add your account, use \"!link [your Leetcode username].\" To unlink your account use !unlink. To see your score, use !score, to see the monthly leaderboard, use !top or !t, and to see the all-time leaderboard use !top a")
 
     await ctx.send(embed = embed)
 
