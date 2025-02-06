@@ -533,6 +533,7 @@ async def on_message(message):
 @bot.command()
 async def credit(ctx):
     if not ctx.channel in {"lcdegens", "leetcode-leaderboard"}:
+        print(ctx.channel)
         return
     await ctx.send("Original bot comes from Georgia Tech's LC Server. Github: https://github.com/SaatvikAgrawal/GT-Leetcode-Bot.git")
 
