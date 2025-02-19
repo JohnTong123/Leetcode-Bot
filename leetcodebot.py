@@ -203,6 +203,8 @@ async def score_background_task():
 
 @bot.command()
 async def score(ctx):
+    if not str(ctx.channel) in {"lcdegens", "leetcode-leaderboard"}:
+        return
     database = get_database()
     if list(database["users"].find({"discord_id": ctx.author.id})) == []:
         await ctx.send("You have not linked an account!")
@@ -221,6 +223,8 @@ def timestamp():
 @bot.command(aliases=['t', 'lb', 'leaderboard'])
 async def top(ctx, mod=None):
     # global last_embed
+    if not str(ctx.channel) in {"lcdegens", "leetcode-leaderboard"}:
+        return
     # try:
         # last_embed
     # except NameError:
@@ -405,7 +409,8 @@ async def top(ctx, mod=None):
 
 @bot.command()
 async def forcetop(ctx):
-
+    if not str(ctx.channel) in {"lcdegens", "leetcode-leaderboard"}:
+        return
     user_roles = ctx.author.roles
     approved_roles = {"Officer","Chair"}
     
@@ -452,6 +457,8 @@ async def link(ctx, account_name):
 async def unlink(ctx):
     # Name of leetcode account to add to the database
     account_id = ctx.author.id
+    if not str(ctx.channel) in {"lcdegens", "leetcode-leaderboard"}:
+        return
     database = get_database()
 
     # If the user already exists
@@ -500,9 +507,11 @@ async def forceunlink(ctx, discord_id):
 
 @bot.command()
 async def help(ctx):
+    if not str(ctx.channel) in {"lcdegens", "leetcode-leaderboard"}:
+        return
     embed = discord.Embed(title = "Help")
 
-    embed.add_field(name = "Use", value = "To add your account, use \"!link [your Leetcode username].\" To see your score, use !score, and to see the whole leaderboard, use !top")
+    embed.add_field(name = "Use", value = "To add your account, use \"!link [your Leetcode username].\" To unlink your account use !unlink. To see your score, use !score, to see the monthly leaderboard, use !top or !t, and to see the all-time leaderboard use !top a")
 
     await ctx.send(embed = embed)
 
@@ -525,6 +534,9 @@ async def on_message(message):
 
 @bot.command()
 async def credit(ctx):
+    if not str(ctx.channel) in {"lcdegens", "leetcode-leaderboard"}:
+        print(ctx.channel)
+        return
     await ctx.send("Original bot comes from Georgia Tech's LC Server. Github: https://github.com/SaatvikAgrawal/GT-Leetcode-Bot.git")
 
 
