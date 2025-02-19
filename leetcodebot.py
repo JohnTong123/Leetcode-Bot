@@ -462,6 +462,7 @@ async def unlink(ctx):
         query_filter = {"discord_id": ctx.author.id}
         database["users"].delete_one(query_filter)
         del SCORES[account_id]
+        del MONTHLY_SCORES[account_id]
         await ctx.send("Account unlinked")
 
 @bot.command()
@@ -490,6 +491,7 @@ async def forceunlink(ctx, discord_id):
             query_filter = {"discord_id": account_id}
             database["users"].delete_one(query_filter)
             del SCORES[account_id]
+            del MONTHLY_SCORES[account_id]
             await ctx.send("Account unlinked")
     
     else:
