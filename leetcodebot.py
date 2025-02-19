@@ -436,6 +436,8 @@ async def link(ctx, account_name):
     # Name of leetcode account to add to the database
     account_name = str(account_name)
     database = get_database()
+    if not str(ctx.channel) in {"lcdegens", "leetcode-leaderboard"}:
+        return
 
     # If the user already exists
     if list(database["users"].find({"discord_id": ctx.author.id})):
@@ -455,6 +457,8 @@ async def link(ctx, account_name):
 
 @bot.command()
 async def unlink(ctx):
+    if not str(ctx.channel) in {"lcdegens", "leetcode-leaderboard"}:
+        return
     # Name of leetcode account to add to the database
     account_id = ctx.author.id
     if not str(ctx.channel) in {"lcdegens", "leetcode-leaderboard"}:
@@ -469,10 +473,13 @@ async def unlink(ctx):
         query_filter = {"discord_id": ctx.author.id}
         database["users"].delete_one(query_filter)
         del SCORES[account_id]
+        del MONTHLY_SCORES[account_id]
         await ctx.send("Account unlinked")
 
 @bot.command()
 async def forceunlink(ctx, discord_id):
+    if not str(ctx.channel) in {"lcdegens", "leetcode-leaderboard"}:
+        return
     # Name of leetcode account to add to the database
 
     user_roles = ctx.author.roles
@@ -497,6 +504,7 @@ async def forceunlink(ctx, discord_id):
             query_filter = {"discord_id": account_id}
             database["users"].delete_one(query_filter)
             del SCORES[account_id]
+            del MONTHLY_SCORES[account_id]
             await ctx.send("Account unlinked")
     
     else:
