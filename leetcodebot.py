@@ -40,7 +40,7 @@ else:
 bot.remove_command("help")
 
 def get_database():
-    return CLIENT["users"]
+    return CLIENT["friends"]
 
 
 class TimeoutView(View):
